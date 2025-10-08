@@ -1,0 +1,96 @@
+﻿/* ==== Card mặc định ==== */
+.card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 1;
+}
+
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    /* ==== Aura glow mặc định (ẩn) ==== */
+    .card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 12px;
+        filter: blur(25px);
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 0.3s ease;
+    }
+
+/* ==== Animation tỏa sáng khi UPDATE (xanh lá) ==== */
+@keyframes pulse-glow {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+.card-update-animation::after {
+    background: rgba(26, 174, 112, 0.4); /* Aura xanh lá */
+    animation: pulse-glow 0.8s ease-out;
+    opacity: 1;
+}
+
+/* ==== HOT ALERT (Cảnh báo) ==== */
+.hot-alert {
+    border: 2px solid red !important;
+    animation: hotPulse 1s infinite;
+}
+
+    .hot-alert::after {
+        background: rgba(255, 0, 0, 0.6); /* Aura đỏ */
+        opacity: 1;
+        animation: hotAura 1.5s infinite ease-in-out;
+    }
+
+/* Nhịp tim box-shadow khi HOT */
+@keyframes hotPulse {
+    0% {
+        box-shadow: 0 0 10px rgba(255,0,0,0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(255,0,0,0.9);
+    }
+
+    100% {
+        box-shadow: 0 0 10px rgba(255,0,0,0.3);
+    }
+}
+
+/* Aura glow nhịp tim khi HOT */
+@keyframes hotAura {
+    0% {
+        opacity: 0.4;
+        transform: scale(0.95);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 0.4;
+        transform: scale(0.95);
+    }
+}
